@@ -13,10 +13,10 @@ app.get('/pronote/lastmessage', async (req, res) => {
   const password = req.query.password;
 
   const login = await pronote.login(url, username, password/*, cas*/);
-  const infos = await (await login.infos()).slice(0, 4);
+  const infos = await login.infos();
   let infosSorted = infos.sort(function(a,b){
     return new Date(b.date) - new Date(a.date);
-  });
+  }).slice(0, 4);
   res.send(infosSorted)
 })
 
